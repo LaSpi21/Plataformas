@@ -1,0 +1,26 @@
+import wollok.game.*
+import juego.*
+import player.*
+import HUD.*
+import espada.*
+import slime.*
+import plataformas.* 
+import moneda.*
+import teletransportadores.*
+import puerta.*
+import niveles.*
+
+
+program plat {
+
+	juego.configurar()
+	
+	
+	selectorNiveles.listaNiveles().get(juego.nivel()).cargar()
+	juego.iniciar()
+	player_hit.cargar()
+	juego.colisiones()
+	
+	game.start()
+
+}
