@@ -8,6 +8,7 @@ import plataformas.*
 import moneda.*
 import teletransportadores.*
 import puerta.*
+import playerHit.*
 
 object selectorNiveles{
 	

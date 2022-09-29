@@ -9,6 +9,7 @@ import moneda.*
 import teletransportadores.*
 import puerta.*
 import niveles.*
+import playerHit.*
 
 
 program plat {

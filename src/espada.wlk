@@ -12,7 +12,7 @@ class Espada inherits Obtenibles{
 		game.addVisual(iconoEspada)
 		juego.visuals().add(iconoEspada)
 		player.tieneEspada(true)
-		player.animIdle()
+		player.jugadorEnReposo()
 		super()
 
 

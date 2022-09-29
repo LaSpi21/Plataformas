@@ -11,15 +11,15 @@ class Slime {
 	const slime_danho = [ "slime_red1.png", "slime_red2.png", "slime_red3.png", "slime_red4.png", "slime_red5.png", "slime_red6.png", "slime_red7.png", "slime_red8.png", "slime_red9.png", "slime_red10.png", "slime_red11.png" ]
 	var property sprites = slime_mov
 	var image = 0
-	var anim_time = 200
+	const anim_time = 300
 	var property position
 	var direccion = true
-	var izquierda
-	var derecha
+	const izquierda
+	const derecha
 	var vida = 5
 	var transpasable = false
-	var moveTickName
-	var animName
+	const moveTickName
+	const animName
 	var vivo = true
 
 	method image() {
@@ -32,7 +32,7 @@ class Slime {
 		if (!transpasable and player.estaVivo()) { player.bajarSalud(2)
 			if (player.salud() > 0){
 				player.transportar(player.posicionInicial())
-				game.say(player, [ "¡Auch!", "Otra vez al comienzo..", "ouch...", "aaAaH!!!" ].anyOne())
+				game.say(player, [ "Más cuidado che", "Otra vez al comienzo..", "ouch...", "aaAaH!!!" ].anyOne())
 			}
 		}
 	}
@@ -54,7 +54,7 @@ class Slime {
 		vivo = true
 		console.println("iniciar slime")
 		sprites = slime_mov
-		game.onTick(400, moveTickName, { self.mover()})
+		game.onTick(450, moveTickName, { self.mover()})
 		juego.tickEvents().add(moveTickName)
 			// game.onTick(125 / 4, "gravity", { self.caer()})
 		self.aplicarAnimate()
@@ -81,16 +81,18 @@ class Slime {
 		ataque.position(game.at(juego.tamanho(), juego.tamanho()))
 		sprites = slime_danho
 		transpasable = true
-		if (juego.tickEvents().contains(moveTickName)) {
-			game.removeTickEvent(moveTickName)
-			juego.tickEvents().remove(moveTickName)
-			game.schedule(350, { game.removeTickEvent(animName)})
-			game.schedule(350, { juego.tickEvents().remove(animName)})
-			game.schedule(400, { self.iniciar()})
-		}
 		if (vida <= 0) {
 			self.morir()
 		}
+		else if (juego.tickEvents().contains(moveTickName)) {
+			game.removeTickEvent(moveTickName)
+			juego.tickEvents().remove(moveTickName)
+			direccion = !direccion
+			game.schedule(350, { game.removeTickEvent(animName)})
+			game.schedule(350, { juego.tickEvents().remove(animName)})
+			game.schedule(450, { self.iniciar()})
+		}
+
 	}
 
 	method morir() {
@@ -120,13 +122,14 @@ class Slime {
 
 	method detener() {
 		if (vivo) {
+			vivo = !vivo
 			game.removeVisual(self)
 			juego.visuals().remove(self)
 			game.schedule(500, { game.removeTickEvent(animName)})
 			game.schedule(500, { juego.tickEvents().remove(animName)})
 			game.schedule(500, { game.removeTickEvent(moveTickName)})
 			game.schedule(500, { juego.tickEvents().remove(moveTickName)})
-			vivo = !vivo
+			
 		}
 	}
 
