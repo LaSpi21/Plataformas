@@ -55,7 +55,7 @@ object nivel1 inherits Nivel {
 	juego.objetos().forEach({ unObjeto => game.addVisual(unObjeto)})
 	juego.objetos().forEach({ unObjeto => juego.visuals().add(unObjeto)})
 	game.addVisual(nombreNivel1)
-	game.schedule(1500, {game.removeVisual(nombreNivel1)})
+	game.schedule(2000, {game.removeVisual(nombreNivel1)})
 	}
 	
 
@@ -97,10 +97,11 @@ object nivel2 inherits Nivel {
 		juego.objetos().addAll([ vida, reloj, monedaHUD, contadorMonedas, ataque, espada2, slime4, slime2, slime3, moneda1, moneda2, moneda3, moneda4, moneda5, tp1, r1, tp2, r2, tp3, r3, tp4, r4, puerta, player ])
 		juego.animables().addAll([ player, reloj, vida, slime4, slime2, slime3, iconoEspada ])
 		juego.reInstanciables().addAll([ slime4, slime2, slime3, moneda1, moneda2, moneda3, moneda4, moneda5, espada2 ])
+		juego.enemigos().addAll([ slime4, slime2, slime3 ])
 		juego.objetos().forEach({ unObjeto => game.addVisual(unObjeto)})
 		juego.objetos().forEach({ unObjeto => juego.visuals().add(unObjeto)})
 		game.addVisual(nombreNivel2)
-		game.schedule(1500, { game.removeVisual(nombreNivel2)})
+		game.schedule(2000, { game.removeVisual(nombreNivel2)})
 	}
 
 

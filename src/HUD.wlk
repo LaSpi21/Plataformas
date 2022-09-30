@@ -42,7 +42,7 @@ object vida {
 
 object monedaHUD {
 
-	method image() = "coinPequenha.png"
+	method image() = "assets/coinPequenha.png"
 	
 	method position() = game.at(1, juego.tamanho() * (9 / 10) - 1)
 	
@@ -62,24 +62,23 @@ object reloj {
 
 	
 	var tiempo = 100
+	
+	method pasoElTiempo(segundos){
+		tiempo -= segundos
+		if (tiempo < 0) {
+			player.morir()
+		}
+	}
 
 	method text() = tiempo.roundUp().toString()
 
 	method position() = game.at(juego.tamanho() / 2, game.height() - juego.tamanho() / 10)
 
-	method pasarTiempo() {
-		tiempo = tiempo - 0.3
-		if (tiempo < 0) {
-			player.morir()
-		}
-		player.caer()
-	// game.onTick(250 / 3, "gravity", { self.caer()})
-	}
+
 
 	method iniciar() {
 		tiempo = 100
-		game.onTick(300, "tiempo", { self.pasarTiempo()})
-		juego.tickEvents().add("tiempo")
+
 	}
 
 	method detener() {
@@ -89,10 +88,7 @@ object reloj {
 		}
 	}
 
-	method reinciar() {
-		game.onTick(1000, "tiempo", { self.pasarTiempo()})
-		juego.tickEvents().add("tiempo")
-	}
+
 
 }
 

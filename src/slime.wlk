@@ -10,8 +10,7 @@ class Slime {
 	const slime_mov = [ "slime (1).png", "slime (2).png", "slime (3).png", "slime (4).png", "slime (5).png", "slime (6).png", "slime (7).png", "slime (8).png", "slime (9).png", "slime (10).png" ]
 	const slime_danho = [ "slime_red1.png", "slime_red2.png", "slime_red3.png", "slime_red4.png", "slime_red5.png", "slime_red6.png", "slime_red7.png", "slime_red8.png", "slime_red9.png", "slime_red10.png", "slime_red11.png" ]
 	var property sprites = slime_mov
-	var image = 0
-	const anim_time = 300
+	var image = (1..10).anyOne()
 	var property position
 	var direccion = true
 	const izquierda
@@ -45,24 +44,17 @@ class Slime {
 		}
 	}
 
-	method aplicarAnimate() {
-		game.onTick(anim_time, animName, { self.Animate()})
-		juego.tickEvents().add(animName)
-	}
 
 	method iniciar() {
 		vivo = true
 		console.println("iniciar slime")
 		sprites = slime_mov
-		game.onTick(450, moveTickName, { self.mover()})
-		juego.tickEvents().add(moveTickName)
-			// game.onTick(125 / 4, "gravity", { self.caer()})
-		self.aplicarAnimate()
 		transpasable = false
 		console.println("inicio slime")
 	}
 
 	method mover() {
+		self.Animate()
 		if (direccion) {
 			position = position.left(1)
 			if (position.x() <= izquierda) {
@@ -97,19 +89,11 @@ class Slime {
 
 	method morir() {
 		self.detener()
-		const dropMoneda = juego.dropCoin().anyOne()
-		if (dropMoneda) {
-			const dropeable = new Moneda(position = self.position())
-		} else {
-			const dropeable = new HealPack(position = self.position())
-		}
-		game.addVisual(dropeable)
-		juego.visuals().add(dropeable)
-		juego.dropCoin().remove(dropMoneda)
+		self.dropear()
 
 	}
 
-
+	method
 
 	method reiniciar() {
 		console.println("reiniciar slime")
@@ -124,12 +108,7 @@ class Slime {
 		if (vivo) {
 			vivo = !vivo
 			game.removeVisual(self)
-			juego.visuals().remove(self)
-			game.schedule(500, { game.removeTickEvent(animName)})
-			game.schedule(500, { juego.tickEvents().remove(animName)})
-			game.schedule(500, { game.removeTickEvent(moveTickName)})
-			game.schedule(500, { juego.tickEvents().remove(moveTickName)})
-			
+			juego.enemigos().remove(self)
 		}
 	}
 

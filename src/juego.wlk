@@ -16,6 +16,7 @@ object juego {
 	const property objetos = []
 	const property animables = []
 	const property reInstanciables = []
+	const property enemigos = []
 	const property tickEvents = []
 	const property visuals = []
 	var property monedas = 0
@@ -75,7 +76,22 @@ object juego {
 	
 	method iniciar() {
 		animables.forEach({ unObjeto => unObjeto.iniciar()})
+		game.onTick(400, "tiempo", { self.pasarTiempo()})
+		juego.tickEvents().add("tiempo")
 	}
+	
+	method pasarTiempo(){
+		
+		reloj.pasoElTiempo(0.4)
+
+		player.caer()
+		
+		enemigos.forEach({unEnemigo => unEnemigo.mover()})
+
+	}
+		
+		
+	
 
 	method colisiones() {
 		player.hitbox().forEach({ x => game.onCollideDo(x, { obstaculo => obstaculo.chocar()})})

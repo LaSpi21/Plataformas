@@ -17,7 +17,8 @@ program plat {
 	juego.configurar()
 	
 	
-	selectorNiveles.listaNiveles().get(juego.nivel()).cargar()
+	//selectorNiveles.listaNiveles().get(juego.nivel()).cargar()
+	nivel2.cargar()
 	juego.iniciar()
 	player_hit.cargar()
 	juego.colisiones()

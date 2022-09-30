@@ -94,7 +94,7 @@ object player {
 				return objAbajo.get(0).esSuelo()
 			} else {
 				if (self.position().y() == -4) {
-				self.caerAlPozo()}
+					self.caerAlPozo()}
 							return false
 			}
 		}
